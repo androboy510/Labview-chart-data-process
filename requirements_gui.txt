@@ -1,0 +1,5 @@
+pandas>=1.5.0
+openpyxl>=3.0.0
+xlrd>=2.0.0
+numpy>=1.21.0
+# tkinter는 Python 기본 내장이므로 별도 설치 불필요 
