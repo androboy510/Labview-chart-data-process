@@ -1,130 +1,150 @@
-# 엑셀/CSV 파일 자동 프로세싱 프로그램
+# Labview Waveform Chart Data Processor
 
-## 개요
-이 프로그램은 사용자가 업로드한 엑셀(.xlsx) 또는 CSV(.csv) 파일을 pandas로 불러와, sample 관련 열을 자동으로 정리하고, Time 열을 추가한 뒤, 원하는 파일명으로 저장할 수 있는 Python 스크립트입니다.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
 
----
+> **Labview Waveform Chart Data Processor**는 Labview에서 생성된 웨이브폼 차트 데이터를 자동으로 처리하고 분석하는 전문 도구입니다.
 
-## 주요 기능
-1. **파일 자동 감지 및 로드**
-   - 입력한 경로의 파일이 .xlsx 또는 .csv인지 자동으로 판별하여 불러옵니다.
-2. **헤더(열 이름) 공백 자동 제거**
-   - 모든 열 이름의 앞뒤 공백을 자동으로 제거합니다.
-3. **'sample' 관련 열 자동 처리**
-   - 'sample'이 포함된 열 중 첫 번째 열만 남기고 나머지는 자동 삭제합니다.
-   - 남겨진 sample 열 이름은 자동으로 인식하여 Time 계산에 사용합니다.
-4. **Time 열 자동 추가**
-   - sample 열 값에 0.01을 곱한 값을 'Time'이라는 이름의 새 열로, DataFrame의 맨 앞에 추가합니다.
-5. **결과 미리보기 및 저장**
-   - 처리된 데이터의 처음 5행을 콘솔에 출력합니다.
-   - 저장 여부를 y/n(예/아니오)로 물어보고, 파일명을 입력하지 않으면 기존 파일명 뒤에 `_processed`가 붙은 이름으로 같은 폴더에 저장합니다.
-   - y/n 외의 입력이 들어오면 안내 메시지와 함께 재입력을 요구합니다.
+## 🚀 주요 기능
 
----
+- **📊 자동 데이터 처리**: Labview 웨이브폼 차트 데이터의 자동 정리 및 분석
+- **🎨 모던 GUI**: 애플/스타트업 스타일의 직관적이고 세련된 사용자 인터페이스
+- **⚡ 빠른 처리**: 다중 파일 대기열 시스템으로 효율적인 배치 처리
+- **🖱️ 드래그 앤 드롭**: 파일을 직접 드래그하여 간편한 데이터 업로드
+- **💾 스마트 저장**: 원본 파일 위치에 자동 저장으로 파일 관리 편의성
+- **📈 실시간 진행률**: 처리 과정을 실시간으로 모니터링
 
-## 설치 방법
+## 📋 요구사항
 
-1. Python 3.8 이상이 설치되어 있어야 합니다.
-2. 필요한 패키지 설치:
-   ```bash
-   pip install -r requirements.txt
-   ```
+- **Python**: 3.8 이상
+- **운영체제**: Windows 10/11
+- **메모리**: 최소 4GB RAM 권장
 
----
+## 🛠️ 설치 방법
 
-## 사용법
-
-1. 터미널(명령 프롬프트)에서 프로그램이 있는 폴더로 이동합니다.
-2. 아래 명령어로 프로그램을 실행합니다:
-   ```bash
-   python excel_processor.py
-   ```
-3. 안내에 따라 파일명을 입력합니다. (같은 폴더에 있으면 파일명만 입력)
-4. 처리된 데이터의 미리보기가 출력됩니다.
-5. 저장 여부를 y/n(예/아니오)로 입력합니다.
-   - y/yes/예: 저장 진행
-   - n/no/아니오: 저장하지 않음
-   - 그 외 입력: "y(예) 또는 n(아니오)로 입력해 주세요." 안내 후 재입력
-6. 저장할 파일명을 입력하지 않고 엔터를 누르면, 기존 파일명 뒤에 `_processed`가 붙은 이름으로 같은 폴더에 저장됩니다.
-
----
-
-## 예시 실행 화면
-```
-==================================================
-엑셀 파일 프로세싱 프로그램
-==================================================
-처리할 파일 경로를 입력하세요: 05.DOF_ANGLE_CONTROLL_P_d_dot.xlsx
-파일이 성공적으로 로드되었습니다: 05.DOF_ANGLE_CONTROLL_P_d_dot.xlsx
-데이터 형태: 1000행 x 6열
-헤더 정리가 완료되었습니다.
-발견된 'sample' 관련 열들: ['sample 수', 'sample 1', 'sample 2']
-삭제된 열들: ['sample 1', 'sample 2']
-남겨진 'sample' 열: sample 수
-'Time' 열이 성공적으로 추가되었습니다.
-
-==================================================
-처리된 데이터 (처음 5행)
-==================================================
-   Time  sample 수  DOF1  DOF2
-0  0.00          0   ...   ...
-1  0.01          1   ...   ...
-2  0.02          2   ...   ...
-3  0.03          3   ...   ...
-4  0.04          4   ...   ...
-
-처리된 파일을 저장하시겠습니까? (y/n): y
-저장할 파일 경로를 입력하세요 (엔터 시 자동 저장):
-처리된 파일이 성공적으로 저장되었습니다: 05.DOF_ANGLE_CONTROLL_P_d_dot_processed.xlsx
-
-프로그램이 성공적으로 완료되었습니다!
-```
-
----
-
-## 입력/출력 파일 예시
-
-### 입력 예시
-| sample 수 | DOF1 | sample 1 | DOF2 | sample 2 | ... |
-|-----------|------|----------|------|----------|-----|
-| 0         | ...  | 0        | ...  | 0        | ... |
-| 1         | ...  | 1        | ...  | 1        | ... |
-| 2         | ...  | 2        | ...  | 2        | ... |
-
-### 출력 예시
-| Time  | sample 수 | DOF1 | DOF2 | ... |
-|-------|-----------|------|------|-----|
-| 0.00  | 0         | ...  | ...  | ... |
-| 0.01  | 1         | ...  | ...  | ... |
-| 0.02  | 2         | ...  | ...  | ... |
-
----
-
-## 주의사항 및 팁
-- 입력 파일은 반드시 첫 번째 행이 헤더여야 합니다.
-- 'sample'을 포함하는 열이 최소 하나 이상 있어야 합니다.
-- 파일 경로는 전체 경로(절대 경로) 또는 같은 폴더에 있으면 파일명만 입력해도 됩니다.
-- 저장 경로를 입력하지 않으면 자동으로 `_processed`가 붙은 이름으로 같은 폴더에 저장됩니다.
-- 폴더에 쓰기 권한이 없으면 저장이 안 될 수 있습니다.
-- 파일 탐색기에서 폴더를 새로고침(F5) 해보세요.
-
----
-
-## 오류 및 예외 처리
-- 파일이 존재하지 않거나, 지원하지 않는 파일 형식이면 오류 메시지가 출력됩니다.
-- 'sample' 관련 열이 없으면 경고 메시지가 출력됩니다.
-- 저장 여부 입력이 잘못되면 안내 후 재입력을 요구합니다.
-- 저장 중 오류가 발생하면 오류 메시지가 출력됩니다.
-
----
-
-## 샘플 데이터 생성 (테스트용)
-테스트용 샘플 데이터를 만들고 싶다면 아래 스크립트를 실행하세요:
+### 1. 저장소 클론
 ```bash
-python create_sample_data.py
+git clone https://github.com/androboy510/Labview-chart-data-process.git
+cd Labview-chart-data-process
 ```
+
+### 2. 의존성 설치
+```bash
+pip install -r requirements.txt
+```
+
+### 3. 실행
+```bash
+python src/excel_processor_gui_v4.py
+```
+
+## 📦 실행 파일 다운로드
+
+최신 릴리즈에서 실행 파일(.exe)을 다운로드하여 바로 사용할 수 있습니다:
+
+1. [Releases](https://github.com/androboy510/Labview-chart-data-process/releases) 페이지 방문
+2. 최신 버전의 `excel_processor_gui_v4.exe` 다운로드
+3. 다운로드한 파일을 더블클릭하여 실행
+
+## 🎯 사용 방법
+
+### 기본 사용법
+1. **파일 선택**: "파일 선택" 버튼 클릭 또는 파일을 드래그 앤 드롭
+2. **자동 처리**: 선택한 파일이 자동으로 처리됩니다
+3. **결과 확인**: 미리보기에서 처리된 데이터 확인
+4. **자동 저장**: 원본 파일 위치에 `_processed.xlsx` 확장자로 저장
+
+### 고급 기능
+- **다중 파일 처리**: 여러 파일을 동시에 선택하여 일괄 처리
+- **진행률 모니터링**: 실시간 진행 상황 확인
+- **상태 표시**: 처리 완료 및 오류 상태를 상태바에서 확인
+
+## 📁 프로젝트 구조
+
+```
+Labview-chart-data-process/
+├── src/                    # 소스 코드
+│   ├── excel_processor_gui_v4.py    # 메인 GUI 애플리케이션
+│   └── excel_processor.py           # 데이터 처리 엔진
+├── docs/                   # 문서
+│   ├── READMEv2.md         # 상세 사용법
+│   ├── PROJECT_SUMMARY.md  # 프로젝트 요약
+│   └── TASKS.md            # 개발 작업 목록
+├── examples/               # 예제 파일
+│   └── create_sample_data.py
+├── requirements.txt        # Python 의존성
+├── .gitignore             # Git 무시 파일
+└── README.md              # 프로젝트 개요
+```
+
+## 🔧 기술 스택
+
+- **Frontend**: tkinter, tkinterdnd2
+- **Data Processing**: pandas, numpy
+- **File I/O**: openpyxl, xlsxwriter
+- **Build Tool**: PyInstaller
+- **Version Control**: Git
+
+## 🚀 개발 환경 설정
+
+### 로컬 개발
+```bash
+# 가상환경 생성
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 의존성 설치
+pip install -r requirements.txt
+
+# 개발 모드 실행
+python src/excel_processor_gui_v4.py
+```
+
+### 실행 파일 빌드
+```bash
+# PyInstaller 설치
+pip install pyinstaller
+
+# 실행 파일 생성
+pyinstaller --onefile --windowed src/excel_processor_gui_v4.py
+```
+
+## 📊 데이터 처리 기능
+
+### 자동 처리 항목
+- **헤더 정리**: 불필요한 공백 및 특수문자 제거
+- **샘플 데이터 처리**: 샘플 열의 자동 인식 및 처리
+- **시간 열 추가**: 샘플 데이터 기반 시간 축 자동 생성
+- **데이터 정규화**: 일관된 형식으로 데이터 표준화
+
+### 지원 파일 형식
+- **입력**: `.xlsx`, `.csv`
+- **출력**: `.xlsx` (처리된 데이터)
+
+## 🤝 기여하기
+
+1. 이 저장소를 포크합니다
+2. 새로운 기능 브랜치를 생성합니다 (`git checkout -b feature/AmazingFeature`)
+3. 변경사항을 커밋합니다 (`git commit -m 'Add some AmazingFeature'`)
+4. 브랜치에 푸시합니다 (`git push origin feature/AmazingFeature`)
+5. Pull Request를 생성합니다
+
+## 📝 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
+
+## 📞 지원
+
+- **이슈 리포트**: [GitHub Issues](https://github.com/androboy510/Labview-chart-data-process/issues)
+- **문서**: [docs/](docs/) 폴더 참조
+- **예제**: [examples/](examples/) 폴더 참조
+
+## 🔄 업데이트 내역
+
+최신 업데이트는 [docs/READMEv2.md](docs/READMEv2.md)에서 확인할 수 있습니다.
 
 ---
 
-## 문의 및 개선 요청
-추가 기능 요청, 버그 제보 등은 언제든 말씀해 주세요! 
+**개발자**: [androboy510](https://github.com/androboy510)  
+**최종 업데이트**: 2025-06-30 
